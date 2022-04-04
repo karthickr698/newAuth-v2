@@ -16,14 +16,18 @@ export default function App() {
   console.log('user', user);
   const dispatch = useDispatch();
 
+  const [loading, setloading] = useState(true);
+
   useEffect(async () => {
     if (!user.token) {
       const data = await AsyncStorageHelper.getItem('token-meem');
       console.log('data', data);
       if (data) {
         UserAction.set(data, dispatch);
+        setloading(false);
       } else {
         UserAction.logout(dispatch);
+        setloading(false);
       }
     }
   }, []);
@@ -31,6 +35,14 @@ export default function App() {
   const {isAuthenticated} = user;
 
   console.log('isAuthenticated', isAuthenticated);
+
+  if (loading) {
+    return (
+      <View>
+        <Text>Loading......</Text>
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>

@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let initialState = {
   token: '',
-  isAuthenticated: AsyncStorage.getItem('token-meem') ? true : false,
+  isAuthenticated: false,
 };
 
 export default function userReducer(state = initialState, action) {
