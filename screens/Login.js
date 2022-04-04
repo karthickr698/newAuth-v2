@@ -12,8 +12,8 @@ import {
 
 import {Avatar, Button} from 'react-native-paper';
 import UserAction from '../Actions/user';
-import {setStorage} from '../service';
 import {useDispatch} from 'react-redux';
+import {AsyncStorageHelper} from '../service';
 
 export default function LoginScreen(props) {
   const [phone, setPhone] = useState('');
@@ -50,7 +50,9 @@ export default function LoginScreen(props) {
           Alert.alert('Error', 'Please enter the correct phone/password');
         } else if (data.msg == 'success') {
           console.log('login', data);
-          setStorage(data.token);
+          //setStorage(data.token);
+          AsyncStorageHelper.saveItem('token-meem', data.token);
+
           UserAction.set(data.token, dispatch);
           //props.navigation.navigate('Home');
         } else {

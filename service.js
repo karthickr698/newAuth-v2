@@ -1,19 +1,31 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const removeStorage = () => {
-  console.log('remove storage');
-  try {
-    AsyncStorage.clear();
-  } catch (e) {
-    console.log('setStorage error', e);
+export class AsyncStorageHelper {
+  static async saveItem(key, value) {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (err) {
+      console.log('Error', err);
+    }
   }
-};
-
-export const setStorage = token => {
-  console.log('set storage', token);
-  try {
-    AsyncStorage.setItem('token-meem', token);
-  } catch (e) {
-    console.log('setStorage error', e);
+  static async removeToken(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (err) {
+      console.log('Error', err);
+    }
   }
-};
+  static async getItem(key) {
+    try {
+      const result = await AsyncStorage.getItem(key);
+      console.log('result before', result);
+      if (result != null) {
+        return result;
+      }
+    } catch (err) {
+      return {
+        error: err,
+      };
+    }
+  }
+}

@@ -3,7 +3,7 @@ import {View, Text, SafeAreaView} from 'react-native';
 import {Button} from 'react-native-paper';
 import UserAction from '../Actions/user';
 import {useDispatch} from 'react-redux';
-import {removeStorage} from '../service';
+import {AsyncStorageHelper} from '../service';
 
 export default function Home(props) {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function Home(props) {
             style={{borderRadius: 10, backgroundColor: 'purple'}}
             onPress={() => {
               console.log('call logout');
-              removeStorage();
+              AsyncStorageHelper.removeToken('token-meem');
               UserAction.logout(dispatch);
             }}
           >
